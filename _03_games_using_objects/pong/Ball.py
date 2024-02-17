@@ -4,7 +4,7 @@ color_progression = ['#FFFFFF', '#FFFF00', '#FFFA00', '#FF0000',
                      '#800080', '#0000FF']
 
 class Ball():
-    def __init__(self, x=0, y=0, ball_speed=5, radius=20):
+    def __init__(self, x=400, y=0, ball_speed=5, radius=20):
         self.x = x
         self.y = y
         self.speed = ball_speed
