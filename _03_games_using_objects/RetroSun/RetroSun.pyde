@@ -1,6 +1,6 @@
-global bg_color, sun_colors, sun_radius
+global bg_color, sun_colors, sun_radius, y_var,h, i, sections
 
-sun_radius = 250
+sun_radius = 300
 bg_color = color(31, 0, 48)
 
 # RGB colors
@@ -24,16 +24,26 @@ sun_colors = [
 """
 
 def setup():
-    pass
+    global y_var,h, i, sections
     # TODO 1) Set the size of your sketch
     size(800,600)
+    y_var = 400
+    h = 40
+    i = 0
+    x = 100
+    w = 1000
+    y = y_var
     """
     * PART I: Drawing the sun
     * See 1st image 
     """
-
+    sections = list()
+    for i in range(5):
+        sections.append(Rectangle(x, y, w, h))
+        y += 100
+        h+=10
     # TODO 2) Draw the bg_color background color using the background() function
-    background(0)
+    background(bg_color)
     # TODO 3) Draw an ellipse for the sun in the center of the window
     # Use fill(sun_colors[0]) to make it yellow
     fill(sun_colors[0])
@@ -86,7 +96,7 @@ def setup():
     updatePixels()
 
 def draw():
-    pass
+    global y_var,h, i, sections
     """
     * PART III: Drawing the missing sections at the bottom of the sun
     * See 3rd image
@@ -106,8 +116,16 @@ def draw():
     #   h = 40
     # *The x position can be the center of the sun's x position minus the radius:
     #   x = sun_center_x - sun_radius
+    x = 100
     # * The width can be 2 times the radius
-    #   w = 2 * sun_radius
+    w = 1000
+    # rect(x,y_var,w,h)
+    for i in range(5):
+        sections[i].update()
+        sections[i].draw()
+    
+        
+        
    
     # Do you see a section missing from the sun like in the 3rd image?
 
@@ -119,6 +137,38 @@ def draw():
     """
    
     # Decrease the y variable of the rectangular section created in part III.
+    # y_var-=1
+    # if i == 0:
+    #     if h <= 0:
+    #         y_var = 600
+    #         h = 40
+    #     h-=1
+    #     y_var = y_var
+    #     i = 1
+    # elif i == 1:
+    #     i = 2
+    # elif i ==2:
+    #     if h <= 0:
+    #         y_var = 600
+    #         h = 40
+            
+    #     h=h
+    #     y_var-=1
+    #     i = 3
+    # elif i == 3:
+    #     i =4
+    # else:
+    #     if h <= 0:
+    #         y_var = 600
+    #         h = 40
+            
+    #     h=h
+    #     y_var-=1
+    #     i = 0
+            
+    #     h=h
+    #     y_var-=1
+    #     i = 0
     # If there isn't a variable declare a variable OUTSIDE of the draw
     # function AND initialize it in the setup() function.
     # *HINT* You will have to put 'global y', where y is your variable,
@@ -196,8 +246,8 @@ class Rectangle:
 
     def update(self):
         self.y -= 1
-        self.h -= 40.0 / (sun_radius + (sun_radius/4))
+        self.h -= 0.15
         
-        if self.y < (height / 2) - (sun_radius / 4):
-            self.y = (height / 2) + sun_radius
-            self.h = 40
+        if self.y <= 0 or self.h <= 0:
+            self.y = 600
+            self.h = 50
